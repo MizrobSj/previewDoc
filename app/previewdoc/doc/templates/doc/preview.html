@@ -1,0 +1,33 @@
+{% extends 'doc/base.html' %}
+{% block preview %}
+<h2>Анализ файла</h2>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Слово</th>
+            <th>TF</th>
+            <th>IDF</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in page_obj %}
+        <tr>
+            <td>{{ item.word }}</td>
+            <td>{{ item.tf }}</td>
+            <td>{{ item.idf }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div>
+    {% if page_obj.has_previous %}
+        <a href="{% url 'file_page' page=page_obj.previous_page_number %}">← Назад</a>
+    {% endif %}
+    <span>Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+    {% if page_obj.has_next %}
+        <a href="{% url 'file_page' page=page_obj.next_page_number %}">Вперёд →</a>
+    {% endif %}
+</div>
+{% endblock preview%}
